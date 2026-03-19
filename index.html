@@ -10,15 +10,19 @@
   />
   <style>
     :root {
-      --bg: #f5f7fb;
-      --card: #ffffff;
-      --text: #1f2937;
-      --muted: #5b6472;
-      --primary: #1d4ed8;
-      --primary-dark: #153eaf;
-      --border: #dbe3ef;
-      --shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
-      --maxw: 1100px;
+      --bg: #0b1020;
+      --panel: #121933;
+      --panel-2: #182142;
+      --card: rgba(255, 255, 255, 0.06);
+      --card-border: rgba(255, 255, 255, 0.12);
+      --text: #e8ecf8;
+      --muted: #b8c0da;
+      --primary: #7cc7ff;
+      --primary-2: #8bffd7;
+      --accent: #9ba8ff;
+      --shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
+      --maxw: 1160px;
+      --radius: 22px;
     }
 
     * {
@@ -31,9 +35,12 @@
 
     body {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--bg);
+      font-family: Inter, Arial, Helvetica, sans-serif;
       color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(124, 199, 255, 0.16), transparent 28%),
+        radial-gradient(circle at top right, rgba(155, 168, 255, 0.14), transparent 22%),
+        linear-gradient(180deg, #0b1020 0%, #10162b 55%, #0a0f1d 100%);
       line-height: 1.65;
     }
 
@@ -43,126 +50,205 @@
     }
 
     a:hover {
-      color: var(--primary-dark);
       text-decoration: underline;
     }
 
     .container {
-      width: 92%;
-      max-width: var(--maxw);
+      width: min(92%, var(--maxw));
       margin: 0 auto;
     }
 
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      background: rgba(10, 15, 29, 0.72);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .topbar-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      padding: 16px 0;
+    }
+
+    .brand {
+      font-weight: 800;
+      letter-spacing: 0.2px;
+      color: #ffffff;
+      white-space: nowrap;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+
+    .nav a {
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 0.96rem;
+    }
+
+    .nav a:hover {
+      color: #fff;
+      text-decoration: none;
+    }
+
     header {
-      background: linear-gradient(135deg, #0f172a, #1e3a8a);
-      color: white;
-      padding: 72px 0 52px;
+      padding: 84px 0 56px;
     }
 
     .hero {
       display: grid;
-      gap: 18px;
+      grid-template-columns: 1.4fr 0.9fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .hero-main,
+    .hero-side {
+      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.04));
+      border: 1px solid var(--card-border);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-main {
+      padding: 34px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(124, 199, 255, 0.1);
+      border: 1px solid rgba(124, 199, 255, 0.22);
+      color: #dff4ff;
+      font-size: 0.92rem;
+      font-weight: 700;
+      margin-bottom: 18px;
     }
 
     .hero h1 {
-      margin: 0;
-      font-size: 2.4rem;
-      line-height: 1.15;
+      margin: 0 0 12px;
+      font-size: clamp(2.2rem, 4vw, 4rem);
+      line-height: 1.06;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-subtitle {
+      margin: 0 0 16px;
+      color: #ffffff;
+      font-size: 1.1rem;
+      font-weight: 700;
     }
 
     .hero p {
       margin: 0;
       max-width: 760px;
-      color: rgba(255, 255, 255, 0.92);
-      font-size: 1.05rem;
+      color: var(--muted);
+      font-size: 1.02rem;
     }
 
-    .hero-links {
+    .hero-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      margin-top: 8px;
+      margin-top: 24px;
     }
 
     .btn {
-      display: inline-block;
-      padding: 11px 16px;
-      border-radius: 10px;
-      font-weight: 600;
-      transition: 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 13px 18px;
+      border-radius: 14px;
+      font-weight: 700;
+      transition: transform 0.18s ease, opacity 0.18s ease, background 0.18s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      text-decoration: none;
     }
 
     .btn-primary {
-      background: white;
-      color: #0f172a;
-    }
-
-    .btn-primary:hover {
-      background: #e8eefc;
-      text-decoration: none;
+      color: #07111f;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
     }
 
     .btn-secondary {
-      background: rgba(255, 255, 255, 0.12);
-      color: white;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.14);
     }
 
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.2);
-      text-decoration: none;
-    }
-
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      background: rgba(255, 255, 255, 0.96);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav-inner {
+    .hero-side {
+      padding: 24px;
       display: flex;
+      flex-direction: column;
       justify-content: space-between;
-      align-items: center;
-      padding: 14px 0;
-      gap: 20px;
+      gap: 18px;
     }
 
-    .brand {
-      font-weight: 700;
-      color: var(--text);
-      white-space: nowrap;
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
     }
 
-    .nav-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
+    .stat {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
     }
 
-    .nav-links a {
-      color: var(--text);
-      font-weight: 600;
-      font-size: 0.95rem;
+    .stat-number {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .mini-card {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(124, 199, 255, 0.08);
+      border: 1px solid rgba(124, 199, 255, 0.14);
     }
 
     section {
-      padding: 56px 0;
+      padding: 28px 0 34px;
     }
 
-    h2 {
-      margin-top: 0;
-      margin-bottom: 12px;
+    .section-head {
+      margin-bottom: 20px;
+    }
+
+    .section-head h2 {
+      margin: 0 0 8px;
       font-size: 1.8rem;
-      color: #111827;
+      letter-spacing: -0.02em;
     }
 
-    .section-intro {
+    .section-head p {
+      margin: 0;
       max-width: 760px;
       color: var(--muted);
-      margin-bottom: 24px;
     }
 
     .grid {
@@ -179,21 +265,21 @@
     }
 
     .card {
+      padding: 24px;
+      border-radius: var(--radius);
       background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 22px;
+      border: 1px solid var(--card-border);
       box-shadow: var(--shadow);
     }
 
     .card h3 {
       margin-top: 0;
       margin-bottom: 10px;
-      font-size: 1.15rem;
+      font-size: 1.12rem;
     }
 
     .card p {
-      margin-bottom: 14px;
+      margin: 0 0 14px;
       color: var(--muted);
     }
 
@@ -205,119 +291,176 @@
     }
 
     .tag {
-      background: #e8eefc;
-      color: #1e3a8a;
-      padding: 6px 10px;
+      padding: 7px 10px;
       border-radius: 999px;
-      font-size: 0.84rem;
-      font-weight: 600;
+      background: rgba(139, 255, 215, 0.08);
+      border: 1px solid rgba(139, 255, 215, 0.18);
+      color: #ddfff5;
+      font-size: 0.82rem;
+      font-weight: 700;
     }
 
-    ul.clean {
+    .list {
       margin: 0;
       padding-left: 18px;
-    }
-
-    ul.clean li {
-      margin-bottom: 8px;
       color: var(--muted);
     }
 
-    .highlight-list a {
-      font-weight: 600;
+    .list li {
+      margin-bottom: 8px;
+    }
+
+    .project-link {
+      font-weight: 700;
+    }
+
+    .contact-links {
+      display: grid;
+      gap: 12px;
+    }
+
+    .contact-item {
+      padding: 16px 18px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
     }
 
     footer {
-      background: #0f172a;
-      color: rgba(255, 255, 255, 0.88);
-      padding: 28px 0;
-      margin-top: 20px;
-    }
-
-    footer a {
-      color: #bfdbfe;
-    }
-
-    .small {
+      padding: 30px 0 44px;
       color: var(--muted);
-      font-size: 0.95rem;
     }
 
-    @media (max-width: 720px) {
-      .hero h1 {
-        font-size: 2rem;
-      }
+    .footer-box {
+      padding: 24px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
 
-      .nav-inner {
+    @media (max-width: 920px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .topbar-inner {
         flex-direction: column;
         align-items: flex-start;
+      }
+
+      .nav {
+        gap: 12px;
+      }
+
+      .hero-main,
+      .hero-side,
+      .card,
+      .footer-box {
+        padding: 20px;
+      }
+
+      .stat-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
 <body>
-
-  <header>
-    <div class="container hero">
-      <h1>Muaffan Alfaiz Wisaksono</h1>
-      <p>
-        GIS, remote sensing, data analytics, and precision agriculture portfolio.
-        I build spatially informed projects for environmental analysis, land suitability,
-        agricultural systems, and decision support.
-      </p>
-      <div class="hero-links">
-        <a class="btn btn-primary" href="#projects">View Projects</a>
-        <a class="btn btn-secondary" href="https://github.com/muaffanalfaiz" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a class="btn btn-secondary" href="https://www.linkedin.com/in/muaffan-alfaiz-wisaksono-499299269" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a class="btn btn-secondary" href="mailto:muaffanw@gmail.com">Email</a>
-      </div>
-    </div>
-  </header>
-
-  <nav>
-    <div class="container nav-inner">
+  <div class="topbar">
+    <div class="container topbar-inner">
       <div class="brand">Muaffan Portfolio</div>
-      <div class="nav-links">
+      <nav class="nav">
         <a href="#about">About</a>
         <a href="#projects">Projects</a>
         <a href="#skills">Skills</a>
-        <a href="#highlights">Highlights</a>
         <a href="#contact">Contact</a>
-      </div>
+      </nav>
     </div>
-  </nav>
+  </div>
+
+  <header>
+    <div class="container hero">
+      <div class="hero-main">
+        <div class="eyebrow">GIS · Data Analytics · Precision Agriculture</div>
+        <h1>Muaffan Alfaiz Wisaksono</h1>
+        <div class="hero-subtitle">GIS Specialist · Data Analyst · Precision Agriculture</div>
+        <p>
+          I build geospatial and data-driven systems for agriculture, environment, and decision support.
+          My portfolio combines GIS, remote sensing, forecasting, machine learning, and applied analytical workflows
+          designed to solve practical problems with clear research and policy value.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#projects">Explore Projects</a>
+          <a class="btn btn-secondary" href="https://github.com/muaffanalfaiz" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a class="btn btn-secondary" href="https://www.linkedin.com/in/muaffan-alfaiz-wisaksono-499299269" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a class="btn btn-secondary" href="mailto:muaffanw@gmail.com">Email</a>
+        </div>
+      </div>
+
+      <aside class="hero-side">
+        <div class="stat-grid">
+          <div class="stat">
+            <div class="stat-number">MSc</div>
+            <div class="stat-label">Precision Agriculture</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">GIS</div>
+            <div class="stat-label">Spatial & environmental analytics</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">NZ + ID</div>
+            <div class="stat-label">Case studies across New Zealand and Indonesia</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">LPDP</div>
+            <div class="stat-label">Scholarship background</div>
+          </div>
+        </div>
+
+        <div class="mini-card">
+          <strong>Current focus</strong>
+          <p style="margin:10px 0 0;">
+            Building a premium portfolio of GIS, forecasting, and agricultural intelligence projects with strong
+            publication, dashboard, and decision-support potential.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </header>
 
   <section id="about">
     <div class="container">
-      <h2>About</h2>
-      <p class="section-intro">
-        I am a researcher and practitioner working across GIS, remote sensing, spatial analysis,
-        environmental modelling, and precision agriculture. My portfolio focuses on applied projects
-        that connect geospatial methods with real-world decision support in agriculture, land management,
-        and environmental systems.
-      </p>
+      <div class="section-head">
+        <h2>About</h2>
+        <p>
+          My work sits at the intersection of spatial analysis, environmental systems, and data analytics.
+          I focus on turning raw geospatial and agricultural data into practical insights for land-use planning,
+          monitoring, forecasting, and strategy.
+        </p>
+      </div>
 
       <div class="grid grid-2">
         <div class="card">
-          <h3>Core Areas</h3>
-          <ul class="clean">
+          <h3>What I work on</h3>
+          <ul class="list">
             <li>GIS and spatial analysis</li>
-            <li>Remote sensing and Earth observation</li>
-            <li>Precision agriculture</li>
-            <li>Environmental risk screening</li>
-            <li>Land suitability and MCDA</li>
-            <li>Applied data analytics and decision support</li>
+            <li>Remote sensing and environmental monitoring</li>
+            <li>Agricultural intelligence and precision agriculture</li>
+            <li>Machine learning and predictive analytics</li>
+            <li>Decision-support tools for policy and planning</li>
           </ul>
         </div>
 
         <div class="card">
-          <h3>Current Focus</h3>
-          <ul class="clean">
-            <li>Soil and sediment source prioritisation</li>
-            <li>Peatland and land restoration analytics</li>
-            <li>Agrivoltaic suitability assessment</li>
-            <li>Satellite-informed agricultural intelligence</li>
-            <li>Spatial workflows for policy and planning</li>
+          <h3>Profile direction</h3>
+          <ul class="list">
+            <li>GIS analyst and environmental analytics roles</li>
+            <li>Data analyst and research analyst positioning</li>
+            <li>Applied agricultural and sustainability projects</li>
+            <li>Portfolio-ready, publication-oriented analytical workflows</li>
           </ul>
         </div>
       </div>
@@ -326,85 +469,71 @@
 
   <section id="projects">
     <div class="container">
-      <h2>Featured Projects</h2>
-      <p class="section-intro">
-        Selected public repositories that reflect my work in geospatial analysis,
-        environmental assessment, and agricultural decision support.
-      </p>
+      <div class="section-head">
+        <h2>Featured Projects</h2>
+        <p>
+          Selected projects across geospatial analytics, forecasting, environmental assessment, and agricultural systems.
+        </p>
+      </div>
 
       <div class="grid grid-2">
         <article class="card">
-          <h3>
-            <a href="https://github.com/muaffanalfaiz/tasman-soil-index" target="_blank" rel="noopener noreferrer">
-              Tasman Soil Intactness Index
-            </a>
-          </h3>
+          <h3>South Sumatra Price Spike Early Warning</h3>
           <p>
-            A soil intactness and sediment-source prioritisation framework for Tasman District, New Zealand,
-            integrating land cover, terrain, and hydrological connectivity for spatial decision support.
-          </p>
-          <div class="tags">
-            <span class="tag">GIS</span>
-            <span class="tag">Remote Sensing</span>
-            <span class="tag">Sediment Risk</span>
-            <span class="tag">Spatial Modelling</span>
-          </div>
-          <a href="https://github.com/muaffanalfaiz/tasman-soil-index" target="_blank" rel="noopener noreferrer">View repository</a>
-        </article>
-
-        <article class="card">
-          <h3>
-            <a href="https://github.com/muaffanalfaiz/degraded-peatland-agrivoltaic-suitability" target="_blank" rel="noopener noreferrer">
-              Degraded Peatland Agrivoltaic Suitability
-            </a>
-          </h3>
-          <p>
-            A GIS-MCDA project for identifying suitable agrivoltaic development zones on degraded peatlands
-            in South Sumatra using risk-first land screening criteria.
-          </p>
-          <div class="tags">
-            <span class="tag">MCDA</span>
-            <span class="tag">Land Suitability</span>
-            <span class="tag">Peatland</span>
-            <span class="tag">Agrivoltaics</span>
-          </div>
-          <a href="https://github.com/muaffanalfaiz/degraded-peatland-agrivoltaic-suitability" target="_blank" rel="noopener noreferrer">View repository</a>
-        </article>
-
-        <article class="card">
-          <h3>
-            <a href="https://github.com/muaffanalfaiz/south-sumatra-price-spike-early-warning" target="_blank" rel="noopener noreferrer">
-              South Sumatra Price Spike Early Warning
-            </a>
-          </h3>
-          <p>
-            A satellite-informed early-warning system for horticultural price spikes using environmental signals,
-            rainfall, vegetation indicators, accessibility, and machine learning.
+            A satellite-informed early-warning system for horticultural price spikes using market data, MODIS vegetation signals,
+            CHIRPS rainfall, and machine learning.
           </p>
           <div class="tags">
             <span class="tag">Machine Learning</span>
             <span class="tag">Agriculture</span>
             <span class="tag">Early Warning</span>
-            <span class="tag">Time Series</span>
+            <span class="tag">Analytics</span>
           </div>
-          <a href="https://github.com/muaffanalfaiz/south-sumatra-price-spike-early-warning" target="_blank" rel="noopener noreferrer">View repository</a>
+          <a class="project-link" href="https://github.com/muaffanalfaiz/south-sumatra-price-spike-early-warning" target="_blank" rel="noopener noreferrer">View repository</a>
         </article>
 
         <article class="card">
-          <h3>
-            <a href="https://github.com/muaffanalfaiz" target="_blank" rel="noopener noreferrer">
-              GitHub Profile
-            </a>
-          </h3>
+          <h3>Degraded Peatland Agrivoltaic Suitability</h3>
           <p>
-            Browse all public repositories, portfolio materials, and ongoing project outputs.
+            A GIS-MCDA land suitability project for agrivoltaic development on degraded peatlands in South Sumatra.
           </p>
           <div class="tags">
-            <span class="tag">Portfolio</span>
-            <span class="tag">Research</span>
-            <span class="tag">Open Projects</span>
+            <span class="tag">GIS-MCDA</span>
+            <span class="tag">Peatland</span>
+            <span class="tag">Land Suitability</span>
+            <span class="tag">Energy</span>
           </div>
-          <a href="https://github.com/muaffanalfaiz" target="_blank" rel="noopener noreferrer">See all repositories</a>
+          <a class="project-link" href="https://github.com/muaffanalfaiz/degraded-peatland-agrivoltaic-suitability" target="_blank" rel="noopener noreferrer">View repository</a>
+        </article>
+
+        <article class="card">
+          <h3>Tasman Soil Index</h3>
+          <p>
+            Multi-criteria spatial analysis for soil infrastructure suitability and environmental decision support in Tasman District,
+            New Zealand.
+          </p>
+          <div class="tags">
+            <span class="tag">Spatial Analysis</span>
+            <span class="tag">New Zealand</span>
+            <span class="tag">Soil</span>
+            <span class="tag">Decision Support</span>
+          </div>
+          <a class="project-link" href="https://github.com/muaffanalfaiz/tasman-soil-index" target="_blank" rel="noopener noreferrer">View repository</a>
+        </article>
+
+        <article class="card">
+          <h3>Farm Fuel &amp; DEF Demand NZ</h3>
+          <p>
+            End-to-end data pipeline and forecasting workflow for New Zealand tractor fleet analysis, diesel demand estimation,
+            DEF demand modeling, and scenario-based forecasting.
+          </p>
+          <div class="tags">
+            <span class="tag">Forecasting</span>
+            <span class="tag">Data Pipeline</span>
+            <span class="tag">Fuel Demand</span>
+            <span class="tag">Agricultural Systems</span>
+          </div>
+          <a class="project-link" href="https://github.com/muaffanalfaiz/farm-fuel-def-demand-nz" target="_blank" rel="noopener noreferrer">View repository</a>
         </article>
       </div>
     </div>
@@ -412,110 +541,93 @@
 
   <section id="skills">
     <div class="container">
-      <h2>Skills</h2>
-      <p class="section-intro">
-        Technical areas and tools used across my research and portfolio projects.
-      </p>
+      <div class="section-head">
+        <h2>Skills</h2>
+        <p>
+          A blend of geospatial, analytical, and research-oriented technical capability.
+        </p>
+      </div>
 
       <div class="grid grid-3">
         <div class="card">
-          <h3>Geospatial</h3>
-          <ul class="clean">
+          <h3>GIS &amp; Spatial</h3>
+          <ul class="list">
             <li>ArcGIS Pro</li>
-            <li>QGIS</li>
-            <li>Spatial analysis</li>
-            <li>Raster and vector workflows</li>
-            <li>Terrain and hydrological analysis</li>
+            <li>Spatial modeling</li>
+            <li>Suitability analysis</li>
+            <li>Remote sensing workflows</li>
+            <li>Raster and vector analysis</li>
           </ul>
         </div>
 
         <div class="card">
-          <h3>Remote Sensing</h3>
-          <ul class="clean">
-            <li>Satellite data interpretation</li>
-            <li>Vegetation indices</li>
-            <li>Land cover analysis</li>
-            <li>Earth observation workflows</li>
-            <li>Environmental monitoring</li>
-          </ul>
-        </div>
-
-        <div class="card">
-          <h3>Data and Modelling</h3>
-          <ul class="clean">
+          <h3>Data &amp; Programming</h3>
+          <ul class="list">
             <li>Python</li>
+            <li>Pandas and data wrangling</li>
+            <li>ETL and analytical pipelines</li>
             <li>Machine learning</li>
-            <li>Data preprocessing</li>
-            <li>Decision support frameworks</li>
-            <li>Applied environmental analytics</li>
+            <li>Forecasting and model evaluation</li>
           </ul>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <section id="highlights">
-    <div class="container">
-      <h2>Academic Highlights</h2>
-      <p class="section-intro">
-        Key academic and professional highlights. Update these items as needed to keep the site fully accurate and verifiable.
-      </p>
-
-      <div class="grid grid-2">
         <div class="card">
-          <h3>Selected Highlights</h3>
-          <ul class="clean">
-            <li>Master’s background in Precision Agriculture</li>
-            <li>Research experience in GIS, remote sensing, and agricultural systems</li>
-            <li>Project work spanning New Zealand and Indonesia case studies</li>
-            <li>Portfolio focused on environmental and agricultural decision support</li>
-          </ul>
-        </div>
-
-        <div class="card highlight-list">
-          <h3>External Profiles</h3>
-          <ul class="clean">
-            <li><a href="https://www.linkedin.com/in/muaffan-alfaiz-wisaksono-499299269" target="_blank" rel="noopener noreferrer">LinkedIn Profile</a></li>
-            <li><a href="https://github.com/muaffanalfaiz" target="_blank" rel="noopener noreferrer">GitHub Profile</a></li>
-            <li><a href="mailto:muaffanw@gmail.com">Email Contact</a></li>
-            <!-- Replace or add these if you have them -->
-            <!-- <li><a href="YOUR_GOOGLE_SCHOLAR_LINK" target="_blank" rel="noopener noreferrer">Google Scholar</a></li> -->
-            <!-- <li><a href="YOUR_CV_LINK" target="_blank" rel="noopener noreferrer">Download CV</a></li> -->
+          <h3>Application Areas</h3>
+          <ul class="list">
+            <li>Precision agriculture</li>
+            <li>Environmental analytics</li>
+            <li>Land-use and planning support</li>
+            <li>Agricultural intelligence</li>
+            <li>Research-ready analytical systems</li>
           </ul>
         </div>
       </div>
-
-      <p class="small" style="margin-top:18px;">
-        Tip: only keep claims here that you are comfortable showing publicly and can support with a profile,
-        CV, publication page, or repository.
-      </p>
     </div>
   </section>
 
   <section id="contact">
     <div class="container">
-      <h2>Contact</h2>
-      <p class="section-intro">
-        For research collaboration, GIS and remote sensing work, precision agriculture projects,
-        or data analytics opportunities, feel free to reach out.
-      </p>
+      <div class="section-head">
+        <h2>Contact</h2>
+        <p>
+          Open to collaboration, research, GIS work, data analytics, and agriculture-related technical opportunities.
+        </p>
+      </div>
 
       <div class="grid grid-2">
         <div class="card">
-          <h3>Direct Contact</h3>
-          <ul class="clean">
-            <li>Email: <a href="mailto:muaffanw@gmail.com">muaffanw@gmail.com</a></li>
-            <li>GitHub: <a href="https://github.com/muaffanalfaiz" target="_blank" rel="noopener noreferrer">github.com/muaffanalfaiz</a></li>
-            <li>LinkedIn: <a href="https://www.linkedin.com/in/muaffan-alfaiz-wisaksono-499299269" target="_blank" rel="noopener noreferrer">linkedin.com/in/muaffan-alfaiz-wisaksono-499299269</a></li>
-          </ul>
+          <h3>Connect</h3>
+          <div class="contact-links">
+            <div class="contact-item">
+              <strong>Email</strong><br />
+              <a href="mailto:muaffanw@gmail.com">muaffanw@gmail.com</a>
+            </div>
+            <div class="contact-item">
+              <strong>LinkedIn</strong><br />
+              <a href="https://www.linkedin.com/in/muaffan-alfaiz-wisaksono-499299269" target="_blank" rel="noopener noreferrer">
+                muaffan-alfaiz-wisaksono-499299269
+              </a>
+            </div>
+            <div class="contact-item">
+              <strong>GitHub</strong><br />
+              <a href="https://github.com/muaffanalfaiz" target="_blank" rel="noopener noreferrer">
+                github.com/muaffanalfaiz
+              </a>
+            </div>
+            <div class="contact-item">
+              <strong>ORCID</strong><br />
+              <a href="https://orcid.org/0009-0009-9373-4882" target="_blank" rel="noopener noreferrer">
+                0009-0009-9373-4882
+              </a>
+            </div>
+          </div>
         </div>
 
         <div class="card">
-          <h3>What this site is for</h3>
+          <h3>Portfolio intent</h3>
           <p>
-            This portfolio is designed as a simple public hub for my geospatial, environmental,
-            and agricultural analytics work. Over time, more projects, publications, visual outputs,
-            and documentation will be added.
+            This site is designed as a clean public portfolio for geospatial, environmental, and agricultural analytics work.
+            Over time it will expand with dashboards, maps, forecasting outputs, and publication-linked project summaries.
           </p>
         </div>
       </div>
@@ -524,15 +636,15 @@
 
   <footer>
     <div class="container">
-      <div><strong>Muaffan Alfaiz Wisaksono</strong></div>
-      <div>GIS · Remote Sensing · Data Analytics · Precision Agriculture</div>
-      <div style="margin-top:8px;">
-        <a href="mailto:muaffanw@gmail.com">muaffanw@gmail.com</a> |
-        <a href="https://github.com/muaffanalfaiz" target="_blank" rel="noopener noreferrer">GitHub</a> |
-        <a href="https://www.linkedin.com/in/muaffan-alfaiz-wisaksono-499299269" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <div class="footer-box">
+        <strong style="color:#fff;">Muaffan Alfaiz Wisaksono</strong><br />
+        GIS · Data Analytics · Precision Agriculture<br /><br />
+        <a href="mailto:muaffanw@gmail.com">Email</a> ·
+        <a href="https://github.com/muaffanalfaiz" target="_blank" rel="noopener noreferrer">GitHub</a> ·
+        <a href="https://www.linkedin.com/in/muaffan-alfaiz-wisaksono-499299269" target="_blank" rel="noopener noreferrer">LinkedIn</a> ·
+        <a href="https://orcid.org/0009-0009-9373-4882" target="_blank" rel="noopener noreferrer">ORCID</a>
       </div>
     </div>
   </footer>
-
 </body>
 </html>
